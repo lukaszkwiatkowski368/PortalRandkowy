@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PortalRandkowy.API.Data;
 using PortalRandkowy.API.Models;
 
@@ -20,49 +21,49 @@ namespace PortalRandkowy.API.Controllers
         }
         // GET api/values
         [HttpGet]
-        public IActionResult GetValues()
+        public async Task<ActionResult> GetValues()
         {
-            var values = _context.Values.ToList();
+            var values = await _context.Values.ToListAsync();
             return Ok(values);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult GetValue(int id)
+        public async Task<ActionResult> GetValue(int id)
         {
-            var value = _context.Values.FirstOrDefault(x => x.id == id);
+            var value = await _context.Values.FirstOrDefaultAsync(x => x.id == id);
             return Ok(value);
         }
 
         // POST api/values
         [HttpPost]
-        public  ActionResult AddValue([FromBody] Value value)
+        public async Task<ActionResult> AddValue([FromBody] Value value)
         {
              _context.Values.Add(value);
-             _context.SaveChanges();
+             await _context.SaveChangesAsync();
              return Ok(value);   
         }
 
         // PUT api/values/5
         [HttpPut("{id}")] 
-        public ActionResult EditValue(int id, [FromBody] Value value)
+        public async Task<ActionResult> EditValue(int id, [FromBody] Value value)
         {
-            var data = _context.Values.Find(id);
+            var data = await _context.Values.FindAsync(id);
             data.name = value.name;
             _context.Values.Update(data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(data);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult DeleteValue(int id)
+        public async Task<ActionResult> DeleteValue(int id)
         {
-            var data = _context.Values.Find(id);
+            var data = await _context.Values.FindAsync(id);
             if(data==null)
                 return NoContent();
             _context.Values.Remove(data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(data);
         }
     }
