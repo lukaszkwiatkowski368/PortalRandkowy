@@ -1,3 +1,6 @@
+using System;
+
+
 namespace PortalRandkowy.API.Models
 {
     public class User
@@ -7,6 +10,7 @@ namespace PortalRandkowy.API.Models
        public byte[] PasswordHash { get; set; }
 
        public byte[] PasswordSalt { get; set; }
+
 
     }
 }
