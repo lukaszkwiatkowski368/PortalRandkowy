@@ -60,6 +60,21 @@ namespace PortalRandkowy.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // app.UseExceptionHandler(builder => {
+                //     builder.Run(async context => {
+                //         context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+
+                //         var error = context.Features.Get<IExceptionHandlerFeatures>();
+
+                //         if (error != null)
+                //         {
+                //             await context.Response.WriteAsync(error.Error.Message);
+                //         }
+                //     });
+                // });
+            }
 
             seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
