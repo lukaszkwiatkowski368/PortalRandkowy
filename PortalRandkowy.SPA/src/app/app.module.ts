@@ -14,13 +14,13 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/UserService.service';
-import { UsereListComponent } from './users/usere-list/usere-list.component';
 import { LikesComponent } from './likes/likes.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { UserCardComponent } from './users/usere-list/user-card/user-card.component';
+import { UserCardComponent } from './users/user-card/user-card.component';
+import { UsereListComponent } from './users/usere-list/usere-list.component';
 
 
 
