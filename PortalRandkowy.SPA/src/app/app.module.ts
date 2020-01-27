@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
@@ -6,6 +6,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { NgxGalleryModule, CustomHammerConfig } from 'ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -22,6 +23,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { UsereListComponent } from './users/usere-list/usere-list.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserDetailResolver } from './_resolvers/user-detail.resolver';
+import { UserListResolver } from './_resolvers/user-list.resolver';
 
 
 
@@ -56,14 +59,17 @@ export function tokenGetter() {
       RouterModule.forRoot(AppRoutes),
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
-      TabsModule.forRoot()
+      TabsModule.forRoot(),
+      NgxGalleryModule
    ],
    providers: [
       AuthService,
       AlertifyService,
       UserService,
       AuthGuard,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      UserDetailResolver,
+      UserListResolver,
    ],
    bootstrap: [
       AppComponent
