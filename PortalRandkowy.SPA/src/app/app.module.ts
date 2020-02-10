@@ -14,7 +14,7 @@ import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_services/alertify.service';
-import { UserService } from './_services/UserService.service';
+import { UserService } from './_services/user.service';
 import { LikesComponent } from './likes/likes.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutes } from './routes';
@@ -25,6 +25,8 @@ import { UsereListComponent } from './users/usere-list/usere-list.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserDetailResolver } from './_resolvers/user-detail.resolver';
 import { UserListResolver } from './_resolvers/user-list.resolver';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditResolver } from './_resolvers/user-edit.resolver';
 
 
 
@@ -44,6 +46,7 @@ export function tokenGetter() {
       MessagesComponent,
       UserCardComponent,
       UserDetailComponent,
+      UserEditComponent
    ],
    imports: [
       BrowserModule,
@@ -70,6 +73,7 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       UserDetailResolver,
       UserListResolver,
+      UserEditResolver
    ],
    bootstrap: [
       AppComponent

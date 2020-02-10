@@ -7,6 +7,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserDetailResolver } from './_resolvers/user-detail.resolver';
 import { UserListResolver } from './_resolvers/user-list.resolver';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditResolver } from './_resolvers/user-edit.resolver';
 
 
 export const AppRoutes: Routes = [
@@ -23,6 +25,10 @@ export const AppRoutes: Routes = [
             {
                 path: 'uzytkownicy/:id',
                 component: UserDetailComponent, resolve: {user: UserDetailResolver}
+            },
+            {
+                path: 'uzytkownik/edycja',
+                component: UserEditComponent, resolve: {user: UserEditResolver}
             },
 
             {
