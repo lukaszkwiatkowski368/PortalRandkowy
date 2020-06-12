@@ -122,6 +122,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "PortalRandkowy-SPA"
+    }
+  },
+  "defaultProject": "PortalRandkowy-SPA",
+  "cli": {
+    "analytics": false
+  }
 }

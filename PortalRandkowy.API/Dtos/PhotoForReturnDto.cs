@@ -13,6 +13,6 @@ namespace PortalRandkowy.API.Dtos
         public DateTime DateAdded { get; set; }         // Data dodania
 
         public bool IsMain { get; set; }
-        public string PublicId { get; set; }
+        public string public_Id { get; set; }
     }
 }
