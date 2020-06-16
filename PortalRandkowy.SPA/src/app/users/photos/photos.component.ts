@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Photo } from '../../_models/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+
 
 @Component({
   selector: 'app-photos',
@@ -14,6 +15,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 export class PhotosComponent implements OnInit {
 
   @Input() photos: Photo[];
+  @Output() getUserPhotoChange = new EventEmitter<string>();
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
@@ -42,7 +44,7 @@ export class PhotosComponent implements OnInit {
     });
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
-      if (response){
+      if (response) {
         const res: Photo = JSON.parse(response);
         const photo = {
           id: res.id,
@@ -62,8 +64,23 @@ export class PhotosComponent implements OnInit {
       this.currentMain = this.photos.filter(p => p.isMain === true)[0];
       this.currentMain.isMain = false;
       photo.isMain = true;
+      this.authService.changeUserPhoto(photo.url);
+      this.authService.currentUser.photoUrl = photo.url;
+      localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+
     }, error => {
       this.alertifyService.error(error);
     });
   }
-}
+  deletePhoto(id: number) {
+    this.alertifyService.confirm('Czy jestes pewien że chcesz usunać zdjęcie?', () => {
+      this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
+        this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+        this.alertifyService.success('Zdjęcie zostało usuniete');
+      }, error => {
+        this.alertifyService.error('Nie udalo się usunac zdjecia');
+      });
+      });
+    }
+  }
+
