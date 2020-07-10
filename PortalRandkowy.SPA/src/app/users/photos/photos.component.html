@@ -49,9 +49,9 @@
             </tbody>
         </table>
         <div>
-            <div>
+            <div *ngIf="uploader.options.isHTML5">
                 Postęp w kolejce
-                <div class="progress mb-4">
+                <div class="progress mb-4" style="margin-bottom: 0;">
                     <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Photo } from '../../_models/photo';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileItem } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -19,12 +20,15 @@ export class PhotosComponent implements OnInit {
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
+  hasAnotherDropZoneOver= false;
   baseUrl = environment.apiUrl;
   currentMain: Photo;
+  progress = 0;
 
   constructor(private authService: AuthService,
               private userService: UserService,
-              private alertifyService: AlertifyService) { }
+              private alertifyService: AlertifyService,
+              private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.initializeUploader();
@@ -32,6 +36,9 @@ export class PhotosComponent implements OnInit {
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
+  public fileOverAnother(e: any): void {
+    this.hasAnotherDropZoneOver = e;
+}
   initializeUploader() {
     this.uploader = new FileUploader ({
       url: this.baseUrl + 'users/' + this.authService.decodedToken.nameid + '/photos',
@@ -40,8 +47,10 @@ export class PhotosComponent implements OnInit {
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
+      method: 'post',
       maxFileSize: 10 * 1024 * 1024
     });
+
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
@@ -54,9 +63,23 @@ export class PhotosComponent implements OnInit {
           isMain: res.isMain
         };
         this.photos.push(photo);
+        if (photo.isMain) {
+          this.authService.changeUserPhoto(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+        }
       }
     };
-
+    this.uploader.onProgressItem = (item, progress: any) => {
+        this.changeDetector.detectChanges();
+        if (progress < 100) {
+          console.log(progress);
+      }
+        console.log(item.progress);
+        item.onProgress = (res) => {
+          console.log(res.toString());
+        }
+    };
   }
   setMainPhoto(photo: Photo) {
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
