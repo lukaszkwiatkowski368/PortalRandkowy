@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalRandkowy.API.Data;
 using PortalRandkowy.API.Dtos;
+using PortalRandkowy.API.Helpers;
 
 namespace PortalRandkowy.API.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(LogUserActivity))]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _repo;

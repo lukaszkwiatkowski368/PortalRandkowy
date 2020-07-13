@@ -14,7 +14,6 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit {
-
   @Input() photos: Photo[];
   @Output() getUserPhotoChange = new EventEmitter<string>();
 
@@ -69,16 +68,6 @@ export class PhotosComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
         }
       }
-    };
-    this.uploader.onProgressItem = (item, progress: any) => {
-        this.changeDetector.detectChanges();
-        if (progress < 100) {
-          console.log(progress);
-      }
-        console.log(item.progress);
-        item.onProgress = (res) => {
-          console.log(res.toString());
-        }
     };
   }
   setMainPhoto(photo: Photo) {
