@@ -13,5 +13,7 @@ namespace PortalRandkowy.API.Data
          Task<Photo> GetPhoto(int id);
 
          Task<Photo> getMainPhotoForUser(int userID);
+
+         Task<Like> GetLike(int userId, int recipientId);
     }
 }

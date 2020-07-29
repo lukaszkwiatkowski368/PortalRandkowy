@@ -24,7 +24,7 @@ namespace PortalRandkowy.API.Data
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users =  _context.Users.Include(p => p.Photos).AsQueryable();
+            var users =  _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
             users = users.Where(u => u.id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
             if(userParams.MaxAge != 18 || userParams.MaxAge != 100 )
@@ -36,6 +36,16 @@ namespace PortalRandkowy.API.Data
 
             if(userParams.ZodiacSign != "Wszystkie") {
                 users = users.Where( u => u.ZodiacSign == userParams.ZodiacSign);
+            }
+            if(!string.IsNullOrEmpty(userParams.OrderBy)) {
+                switch (userParams.OrderBy) {
+                    case "created":
+                        users = users.OrderByDescending(u => u.Created);
+                        break;
+                    default:
+                        users = users.OrderByDescending(u => u.LastActive);
+                        break;
+                }
             }
             
             return await PagedList<User>.CreateListAsync(users, userParams.PageNumber, userParams.pageSize);
@@ -50,6 +60,11 @@ namespace PortalRandkowy.API.Data
         public async Task<Photo> getMainPhotoForUser(int userId)
         {
             return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
+        }
+
+        public async Task<Like> GetLike(int userId, int recipientId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(u => u.UserLikesId == userId && u.UserIsLikedId == recipientId);
         }
     }
 }
