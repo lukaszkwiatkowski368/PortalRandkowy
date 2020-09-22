@@ -10,6 +10,7 @@ import { UserListResolver } from './_resolvers/user-list.resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavesChanges } from './_guards/prevent-unsaved-changes.guard';
+import { LikesResolver } from './_resolvers/likes.resolver';
 
 
 export const AppRoutes: Routes = [
@@ -33,7 +34,8 @@ export const AppRoutes: Routes = [
 
             {
                 path: 'polubienia',
-                component: LikesComponent
+                component: LikesComponent,
+                resolve: {users: LikesResolver}
             },
             {
                 path: 'wiadomosci',

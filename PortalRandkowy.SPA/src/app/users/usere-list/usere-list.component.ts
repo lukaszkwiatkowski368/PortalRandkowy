@@ -13,7 +13,7 @@ import { Pagination, PaginationResult } from 'src/app/_models/pagination';
 export class UsereListComponent implements OnInit {
 
   users: User[];
-  user: User =JSON.parse(localStorage.getItem('user'));
+  user: User = JSON.parse(localStorage.getItem('user'));
   genderList = [{value: 'mężczyzna', display: 'Mężczyźni'},
                 {value: 'kobieta', display: 'Kobiety'}];
   zodiacSignList = [{value: 'Wszystkie', display: 'Wszystkie'},
