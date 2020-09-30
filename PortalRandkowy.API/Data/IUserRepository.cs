@@ -15,5 +15,10 @@ namespace PortalRandkowy.API.Data
          Task<Photo> getMainPhotoForUser(int userID);
 
          Task<Like> GetLike(int userId, int recipientId);
+         Task<Message> GetMessage(int id);
+
+         Task<PagedList<Message>> GetMessagesForUser();
+
+         Task<IEnumerable<Message>> GetMessageTread(int userId, int recipientId);
     }
 }
