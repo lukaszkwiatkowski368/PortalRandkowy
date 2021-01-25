@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -37,6 +38,21 @@ namespace PortalRandkowy.API.Controllers
                 return NotFound();
 
             return Ok(messageFromRepo);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMessagesForUser(int userId, [FromQuery]MessageParams messageParams)
+        {
+              if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            messageParams.UserId = userId;
+            var messageFromRepo = await _repository.GetMessagesForUser(messageParams);
+            var messageToReturn = _mapper.Map<IEnumerable<MessageToReturnDto>>(messageFromRepo);
+
+            Response.AddPagination(messageFromRepo.CurrentPage, messageFromRepo.PageSize, 
+                                    messageFromRepo.TotalCount, messageFromRepo.TotalPages);
+            return Ok (messageToReturn);
         }
 
         [HttpPost]

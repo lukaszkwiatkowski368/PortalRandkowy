@@ -6,12 +6,12 @@ namespace PortalRandkowy.API.Dtos
     {
         public int SenderId { get; set; }
         public int RecipientId { get; set; }
-        public DateTime DataSent { get; set; }
+        public DateTime DateSend { get; set; }
         public string Content { get; set; }
 
         public MessageForCreationDto()
         {
-            DataSent = DateTime.Now;
+            DateSend = DateTime.Now;
         }
     }
 }
