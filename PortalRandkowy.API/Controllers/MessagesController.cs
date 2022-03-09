@@ -54,6 +54,16 @@ namespace PortalRandkowy.API.Controllers
                                     messageFromRepo.TotalCount, messageFromRepo.TotalPages);
             return Ok (messageToReturn);
         }
+        
+        [HttpGet("thread/{recipientId}")]
+        public async Task<IActionResult> GetMessagesThread(int userId, int recipientId){
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            var messageFromRepo = await _repository.GetMessageTread(userId, recipientId);
+            var messageThread = _mapper.Map<IEnumerable<MessageToReturnDto>>(messageFromRepo);
+            return Ok(messageThread);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreationDto)
