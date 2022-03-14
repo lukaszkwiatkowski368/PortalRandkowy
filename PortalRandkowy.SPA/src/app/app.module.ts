@@ -1,12 +1,12 @@
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
-import { NgxGalleryModule, CustomHammerConfig } from 'ngx-gallery';
+import { NgxGalleryModule } from 'ngx-gallery-9';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
@@ -90,6 +90,7 @@ export function tokenGetter() {
    ],
    bootstrap: [
       AppComponent
-   ]
+   ],
+   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
