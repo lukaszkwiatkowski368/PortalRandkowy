@@ -8,7 +8,7 @@ export interface User {
         age: number;
         zodiacSign: string;
         created: Date;
-        lastActive: Date;
+        lastActive: string;
         city: string;
         country: string;
         /**Zakłądka info */
