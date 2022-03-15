@@ -11,6 +11,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavesChanges } from './_guards/prevent-unsaved-changes.guard';
 import { LikesResolver } from './_resolvers/likes.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 
 export const AppRoutes: Routes = [
@@ -38,9 +39,9 @@ export const AppRoutes: Routes = [
                 resolve: {users: LikesResolver}
             },
             {
-                path: 'wiadomosci',
-                component: MessagesComponent
-            }
+                path: 'wiadomosci', component: MessagesComponent,
+                                    resolve: {messages: MessagesResolver}
+            },
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full' }

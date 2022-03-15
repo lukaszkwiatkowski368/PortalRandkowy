@@ -32,6 +32,7 @@ import { PreventUnsavesChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotosComponent } from './users/photos/photos.component';
 import { TimeAgoPipe } from './_pipes/time-ago-pipes';
 import { LikesResolver } from './_resolvers/likes.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 
 
@@ -86,7 +87,8 @@ export function tokenGetter() {
       UserListResolver,
       UserEditResolver,
       PreventUnsavesChanges,
-      LikesResolver
+      LikesResolver,
+      MessagesResolver,
    ],
    bootstrap: [
       AppComponent
