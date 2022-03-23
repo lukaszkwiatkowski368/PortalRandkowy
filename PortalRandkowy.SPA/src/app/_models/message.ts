@@ -11,5 +11,5 @@ export interface Message {
     content: string;
     isRead: boolean;
     dataRead: Data;
-    dataSend: Data;
+    dateSend: Data;
 }

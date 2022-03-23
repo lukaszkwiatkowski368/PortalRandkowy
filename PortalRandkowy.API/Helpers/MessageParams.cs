@@ -14,6 +14,6 @@ namespace PortalRandkowy.API.Helpers
         
         public int UserId { get; set; }
 
-        public string MessageContainer { get; set; } = "Nieprzeczytane";
+        public string MessageContainer { get; set; } = "Nieprzeczytana";
     }
 }

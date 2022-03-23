@@ -75,14 +75,15 @@ GetMessages(id: number, page?, itemsPerPage?, messageContainer?){
   const paginationResult: PaginationResult<Message[]> = new PaginationResult<Message[]>();
   let params = new HttpParams();
 
-  params.append('MessageContainer', messageContainer);
+
+  params = params.append('MessageContainer', messageContainer);
 
   
   if (page != null && itemsPerPage != null) {
     params = params.append('pageNumber', page);
     params = params.append('pageSize', itemsPerPage);
   }
-
+  console.log(params);
   return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages',  { observe: 'response', params })
     .pipe(
       map(response => {
