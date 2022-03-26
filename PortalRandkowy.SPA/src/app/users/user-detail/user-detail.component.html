@@ -123,7 +123,7 @@
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>
           <tab heading="Wiadomości">
-            <p>Tutaj będą wiadomości</p>
+            <app-user-messages [recipientId]="user.id"></app-user-messages>
           </tab>
         </tabset>
       </div>
