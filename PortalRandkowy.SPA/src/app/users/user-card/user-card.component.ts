@@ -23,7 +23,7 @@ export class UserCardComponent implements OnInit {
           .subscribe(data => {
             this.alertify.success('Polubiłeś: ' + this.user.username);
           }, error => {
-            this.alertify.error(error);
+            this.alertify.error('Już lubisz tego użytkownika albo ' + error);
           });
   }
 

@@ -30,7 +30,7 @@ export class MessagesComponent implements OnInit {
   }
 
   loadMessages(){
-    this.userService.GetMessages(this.authService.decodedToken.nameId, this.pagination.currentPage, 
+    this.userService.GetMessages(this.authService.decodedToken.nameid, this.pagination.currentPage, 
                                 this.pagination.itemsPerPage, this.messageContainer )
           .subscribe((res: PaginationResult<Message[]>) => {
             this.messages = res.result;
