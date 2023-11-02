@@ -1,11 +1,15 @@
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
+import { TabsModule } from 'ngx-bootstrap/tabs'
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
+import { PaginationModule } from 'ngx-bootstrap/pagination'
+import { ButtonsModule} from 'ngx-bootstrap/buttons';
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -34,6 +38,7 @@ import { TimeAgoPipe } from './_pipes/time-ago-pipes';
 import { LikesResolver } from './_resolvers/likes.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { UserMessagesComponent } from './users/user-messages/user-messages.component';
+
 
 
 
@@ -66,8 +71,8 @@ export function tokenGetter() {
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
-            whitelistedDomains: ['localhost:5000'],
-            blacklistedRoutes: ['localhost:5000/api/auth']
+            allowedDomains: ['localhost:5000'],
+            disallowedRoutes: ['localhost:5000/api/auth']
          }
       }),
       RouterModule.forRoot(AppRoutes),
@@ -95,6 +100,6 @@ export function tokenGetter() {
    bootstrap: [
       AppComponent
    ],
-   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA] 
 })
 export class AppModule { }

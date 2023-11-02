@@ -91,6 +91,15 @@ namespace PortalRandkowy.API.Controllers
                 return Ok();
             return BadRequest("Nie można polubić użytkownika");    
         }
+        [HttpDelete("{id}")]
+            public async Task<IActionResult> DeleteUser(int id)
+        {
+            var data = await _repo.DeleteUser(id);
+            if(data==null)
+                return NoContent();
+            else return Ok(data);
+           
+        }
 
     }
 }

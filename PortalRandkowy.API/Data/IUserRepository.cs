@@ -20,5 +20,8 @@ namespace PortalRandkowy.API.Data
          Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
 
          Task<IEnumerable<Message>> GetMessageTread(int userId, int recipientId);
+
+         Task<User> DeleteUser(int id);
+
     }
 }

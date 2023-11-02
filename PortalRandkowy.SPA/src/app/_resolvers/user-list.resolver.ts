@@ -5,9 +5,10 @@ import { User } from '../_models/user';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { PaginationResult } from '../_models/pagination';
 
 @Injectable()
-export class UserListResolver implements Resolve<User[]> {
+export class UserListResolver {//implements Resolve<User[]> {
 
     pageNumber = 1;
     pageSize = 12;
@@ -16,7 +17,7 @@ export class UserListResolver implements Resolve<User[]> {
                 private router: Router,
                 private alertify: AlertifyService) {}
 
-                resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
+                resolve(route: ActivatedRouteSnapshot): Observable<PaginationResult<User[]>>{
                     return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
                         catchError(error => {
                             this.alertify.error('Problem z pobraniem danych');

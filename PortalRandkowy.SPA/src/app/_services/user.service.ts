@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../_models/user';
-import { idLocale } from 'ngx-bootstrap';
+//import { idLocale } from 'ngx-bootstrap';
 import { PaginationResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/message';

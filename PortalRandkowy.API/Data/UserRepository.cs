@@ -127,6 +127,17 @@ namespace PortalRandkowy.API.Data
             return messages;
 
         }
+        public async Task<User> DeleteUser(int id)
+        {
+            var data = await _context.Users.FindAsync(id);
+            if (data == null)
+                return data;
+            _context.Users.Remove(data);
+            await _context.SaveChangesAsync();
+            return data;
+        }
+
+
 
     }
 }
