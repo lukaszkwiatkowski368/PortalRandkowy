@@ -16,6 +16,7 @@ export class MessagesComponent implements OnInit {
   messages: Message[];
   pagination: Pagination;
   messageContainer = 'Nieprzeczytane';
+  userObj;
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -26,7 +27,11 @@ export class MessagesComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.messages = data.messages.result;
       this.pagination = data.messages.pagination;
-    });
+    }
+    );
+    this.userObj = {
+      userId : 10
+    } 
   }
 
   loadMessages(){
@@ -38,6 +43,7 @@ export class MessagesComponent implements OnInit {
           }, error => {
             this.alertify.error(error);
           });
+          console.log('hello world');
   }
   pageChanged(event: any) : void {
     this.pagination.currentPage = event.page;

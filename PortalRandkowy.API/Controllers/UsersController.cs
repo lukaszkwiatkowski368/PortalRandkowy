@@ -45,7 +45,7 @@ namespace PortalRandkowy.API.Controllers
            
         }
 
-        [HttpGet("{id}", Name="GetUser")]
+        [HttpGet("{id}")]//, Name="GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
@@ -97,7 +97,7 @@ namespace PortalRandkowy.API.Controllers
             var data = await _repo.DeleteUser(id);
             if(data==null)
                 return NoContent();
-            else return Ok(data);
+            else return Ok();
            
         }
 
